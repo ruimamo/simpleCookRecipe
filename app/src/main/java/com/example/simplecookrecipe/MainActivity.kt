@@ -3,14 +3,13 @@ package com.example.simplecookrecipe
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -19,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
@@ -76,13 +74,12 @@ fun OkazuList(navController: NavController) {
         )
         LazyColumn {
             items(okazuList) { okazu ->
-                ClickableText(
-                    text = AnnotatedString(okazu),
-                    modifier = Modifier.padding(15.dp)
-                ) { offset ->
+                Column (modifier = Modifier.clickable{
                     navController.navigate("detail/$okazu")
+                }) {
+                    Text(okazu, modifier = Modifier.padding(10.dp))
+                    Divider()
                 }
-                Divider()
             }
         }
     }
@@ -90,7 +87,7 @@ fun OkazuList(navController: NavController) {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun SimpleCookRecipePreview() {
     SimpleCookRecipeTheme {
         OkazuList(navController = rememberNavController())
     }
